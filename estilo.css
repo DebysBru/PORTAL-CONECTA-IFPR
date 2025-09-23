@@ -1,0 +1,448 @@
+/* style.css */
+
+/* --- RESET BÁSICO E VARIÁVEIS DE COR --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul-principal: #2F52D3;
+    --roxo-principal: #6f42c1;
+    --rosa-vibrante: #E83D89;
+    --amarelo-destaque: #FFD700;
+    --cinza-escuro: #343a40;
+    --cinza-claro: #f8f9fa;
+    --branco: #FFFFFF;
+    --verde-extensao: #73A641;
+
+    --font-titulo: 'Playpen Sans', cursive;
+    --font-corpo: 'Lato', sans-serif;
+    --font-destaque: 'Montserrat', sans-serif;
+
+
+    /*outro projeto     */
+    --ifz-azul: #007BFF;
+    --ifz-roxo: #6F42C1;
+    --ifz-rosa: #E83E8C;
+    --ifz-ciano: #17A2B8;
+    --ifz-cinza-900: #343A40;
+    --ifz-cinza-700: #5B6166;
+    --ifz-cinza-300: #E6E8EB;
+    --ifz-cinza-100: #F5F6F8;
+    --radius: 16px;
+    --shadow: 0 8px 24px rgba(0, 0, 0, .08);
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, .06);
+    --space: 8px
+}
+
+body {
+    font-family: var(--font-corpo);
+    background-color: var(--cinza-claro);
+    color: var(--cinza-escuro);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- CABEÇALHO --- */
+.main-header {
+    background: linear-gradient(90deg, var(--azul-principal), var(--roxo-principal));
+    color: var(--branco);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header .logo {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-destaque);
+    font-size: 1.2rem;
+}
+
+.main-header .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.main-nav ul li a {
+    color: var(--branco);
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.main-nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.search-bar input {
+    padding: 8px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 8px 12px;
+    border: none;
+    background-color: var(--rosa-vibrante);
+    color: var(--branco);
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+/* --- BANNER PRINCIPAL --- */
+.main-banner {
+    background: var(--branco);
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.banner-slide {
+    display: none;
+    /* JS vai controlar isso */
+    align-items: center;
+    padding: 40px;
+}
+
+.banner-slide.active {
+    display: flex;
+}
+
+.banner-text h1 {
+    font-family: var(--font-titulo);
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--roxo-principal);
+    margin-bottom: 15px;
+}
+
+.banner-text p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    max-width: 80%;
+}
+
+.btn-main {
+    background-color: var(--rosa-vibrante);
+    color: var(--branco);
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: transform 0.3s;
+}
+
+.btn-main:hover {
+    transform: scale(1.05);
+}
+
+.banner-image img {
+    max-width: 300px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+
+/* --- SEÇÕES DE CARDS --- */
+.shortcuts,
+.projects-feed {
+    padding: 40px 0;
+}
+
+.shortcuts h2,
+.projects-feed h2 {
+    text-align: center;
+    font-family: var(--font-titulo);
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.shortcut-card {
+    background: var(--branco);
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.shortcut-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shortcut-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.shortcut-card h3 {
+    font-family: var(--font-destaque);
+    margin-bottom: 5px;
+}
+
+/* --- CARDS DE PROJETOS --- */
+.project-card {
+    background: var(--branco);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--branco);
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.project-tag.extensao {
+    background-color: var(--verde-extensao);
+}
+
+.project-tag.pesquisa {
+    background-color: var(--azul-principal);
+}
+
+.project-tag.ensino {
+    background-color: var(--amarelo-destaque);
+    color: var(--cinza-escuro);
+}
+
+.project-info h3 {
+    font-family: var(--font-destaque);
+}
+
+.project-info a {
+    color: var(--roxo-principal);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* --- RODAPÉ --- */
+.main-footer {
+    background: var(--cinza-escuro);
+    color: var(--branco);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+
+/* BOTOES DE LOGIN */
+.hide {
+    display: none !important;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    background: #111;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm)
+}
+
+.toast.hide {
+    display: none;
+    opacity: 0;
+    transition: all .5s ease-in-out
+}
+
+.toast.show {
+    display: block;
+    opacity: 1;
+    transition: all .5s ease-in-out
+}
+
+.form {
+    display: grid;
+    gap: 12px
+}
+
+.field {
+    display: grid;
+    gap: 6px
+}
+
+label {
+    font: 600 13px/1.2 Montserrat, sans-serif
+}
+
+textarea.input {
+    min-height: 120px;
+    resize: vertical
+}
+
+select.input {
+    background: #fff
+}
+
+.error {
+    color: #B00020;
+    font-size: 12px
+}
+
+.micro {
+    font-size: 12px;
+    color: var(--ifz-cinza-700)
+}
+dialog {
+    margin: auto;
+    width: 400px;
+    /* Aumenta a largura */
+    max-width: 90vw;
+    /* Responsivo */
+    padding: 2rem;
+    /* Espaçamento interno */
+    border-radius: 8px;
+    /* Bordas arredondadas */
+    text-align: center;
+    /* Centraliza o conteúdo */
+
+}
+
+
+.input {
+    appearance: none;
+    border: 1px solid var(--ifz-cinza-300);
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: #fff;
+    width: clamp(140px, 28vw, 340px);
+}
+.btn {
+    appearance: none;
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .2s;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--ifz-cinza-300);
+}
+
+
+
+.btn-primary {
+    background: var(--ifz-azul);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+/* menu novo */
+
+/* Estilo básico do menu */
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.main-nav ul li {
+  position: relative;
+}
+
+.main-nav ul li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+/* Estilo do submenu */
+.main-nav .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 0;
+  margin: 0;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.main-nav .submenu li a {
+  padding: 10px;
+  color: #333;
+  display: block;
+}
+
+.main-nav .submenu li a:hover {
+  background: #f2f2f2;
+}
+
+/* Mostrar submenu ao passar o mouse */
+.main-nav li.has-submenu:hover .submenu {
+  display: block;
+}

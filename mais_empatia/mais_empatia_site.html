@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mais Empatia - Combatendo o Bullying</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* === NAVBAR === */
+        .navbar-custom {
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: #2c3e50 !important;
+        }
+
+        .navbar-brand img {
+            width: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem !important;
+            font-size: 1.05rem;
+            color: #ecf0f1 !important;
+        }
+
+        .nav-link:hover {
+            color: #e74c3c !important;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        /* === HERO SECTION === */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 80vh;
+            min-height: 600px;
+            padding-top: 80px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* === CARDS === */
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .comunidade-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .comunidade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* === SEÇÃO AJUDA === */
+        .ajuda-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .ajuda-card {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .ajuda-card:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-5px);
+        }
+
+        /* === SEÇÃO SOBRE === */
+        .sobre-section {
+            background-color: #f8f9fa;
+        }
+
+        .img-sobre {
+            max-width: 350px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* === BOTÕES PERSONALIZADOS === */
+        .btn-empatia {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-empatia:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .btn-ajuda {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ajuda:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 60vh;
+                text-align: center;
+            }
+            .site-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* === BARRA DE PESQUISA === */
+        .navbar .form-control {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .navbar .form-control::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* === BADGES === */
+        .badge-empatia {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .badge-prevencao {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .badge-apoio {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-heart-fill me-2 text-danger" style="font-size: 2rem;"></i>
+                <span class="site-title">MAIS EMPATIA</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#recursos"><i class="bi bi-book"></i> Recursos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#dicas"><i class="bi bi-lightbulb"></i> Dicas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#apoio"><i class="bi bi-chat-heart"></i> Apoio</a></li>
+                </ul>
+
+                <!-- Barra de Pesquisa Desktop -->
+                <form class="d-none d-lg-flex ms-auto" style="width: 250px;">
+                    <input class="form-control form-control-sm" type="search" placeholder="Buscar ajuda...">
+                    <button class="btn btn-sm btn-outline-light ms-2" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+                <!-- Ícone Pesquisa Mobile -->
+                <div class="d-lg-none ms-2">
+                    <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#searchMobile">
+                        <i class="bi bi-search fs-5"></i>
+                    </a>
+                    <div class="collapse" id="searchMobile">
+                        <input class="form-control form-control-sm mt-2" type="search" placeholder="Digite aqui...">
+                    </div>
+                </div>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#contato"><i class="bi bi-telephone"></i> Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ajuda"><i class="bi bi-question-circle"></i> Ajuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seção Hero -->
+    <section class="hero-section">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="display-3 fw-bold mb-4">Juntos Contra o Bullying</h1>
+                    <p class="lead mb-5">Um ambiente escolar seguro e acolhedor para todos os estudantes</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#recursos" class="btn btn-empatia btn-lg px-4">Buscar Ajuda</a>
+                        <a href="#sobre" class="btn btn-outline-light btn-lg px-4">Saiba Mais <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <i class="bi bi-people-fill" style="font-size: 15rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Comunidade/Ações -->
+    <section class="comunidade py-5" id="comunidade">
+        <div class="container">
+            <h2 class="text-center display-4 fw-bold mb-5 text-primary">Ações na Comunidade</h2>
+            
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="comunidade-card h-100 p-4 rounded-3">
+                        <i class="bi bi-shield-fill-check fs-1 text-light mb-3"></i>
+                        <h3>Prevenção</h3>
+                        <p>Programas educativos para prevenir o bullying nas escolas.</p>
+                        <a href="#" class="btn btn-sm btn-outline-light">Participar</a>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="comunidade-card h-100 p-4 rounded-3">
+                        <i class="bi bi-mortarboard-fill fs-1 text-light mb-3"></i>
+                        <h3>Capacitação</h3>
+                        <p>Treinamentos para educadores e famílias.</p>
+                        <a href="#" class="btn btn-sm btn-outline-light">Inscrever-se</a>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="comunidade-card h-100 p-4 rounded-3">
+                        <i class="bi bi-chat-dots-fill fs-1 text-light mb-3"></i>
+                        <h3>Grupos de Apoio</h3>
+                        <p>Encontros para compartilhar experiências e soluções.</p>
+                        <a href="#" class="btn btn-sm btn-outline-light">Participar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Recursos -->
+    <section class="container py-5 mt-4" id="recursos">
+        <h2 class="text-center mb-5 display-4 fw-bold text-primary">Nossos Recursos</h2>
+        
+        <div class="row g-4">
+            <!-- Recurso 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-heart-pulse-fill text-danger mb-3" style="font-size: 3rem;"></i>
+                        <span class="badge badge-empatia mb-2">Apoio Emocional</span>
+                        <h3 class="h4">Como Identificar o Bullying</h3>
+                        <p>Sinais e comportamentos que indicam situações de bullying.</p>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#" class="btn btn-sm btn-empatia">Ler Guia</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recurso 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-people-fill text-success mb-3" style="font-size: 3rem;"></i>
+                        <span class="badge badge-prevencao mb-2">Prevenção</span>
+                        <h3 class="h4">Construindo Empatia</h3>
+                        <p>Atividades e dinâmicas para desenvolver a empatia em sala de aula.</p>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#" class="btn btn-sm btn-empatia">Ler Guia</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recurso 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-chat-heart-fill text-warning mb-3" style="font-size: 3rem;"></i>
+                        <span class="badge badge-apoio mb-2">Apoio</span>
+                        <h3 class="h4">Primeiros Socorros Emocionais</h3>
+                        <p>Como ajudar uma vítima de bullying de forma imediata e efetiva.</p>
+                    </div>
+                    <div class="card-footer bg-transparent text-center">
+                        <a href="#" class="btn btn-sm btn-empatia">Ler Guia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-empatia btn-lg">Ver Todos os Recursos</a>
+        </div>
+    </section>
+
+    <!-- Seção de Ajuda Emergencial -->
+    <section class="ajuda-section py-5" id="ajuda">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h2 class="text-center display-4 fw-bold mb-5">Precisa de Ajuda Urgente?</h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="ajuda-card text-center h-100">
+                                <i class="bi bi-telephone-fill text-danger mb-3" style="font-size: 3rem;"></i>
+                                <h3>Linha de Apoio</h3>
+                                <p class="mb-3">Fale com nossos psicólogos 24 horas por dia</p>
+                                <h4 class="text-primary">0800 123 4567</h4>
+                                <small class="text-muted">Ligação gratuita</small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="ajuda-card text-center h-100">
+                                <i class="bi bi-chat-dots-fill text-success mb-3" style="font-size: 3rem;"></i>
+                                <h3>Chat Online</h3>
+                                <p class="mb-3">Converse conosco através do nosso chat</p>
+                                <a href="#" class="btn btn-ajuda">Iniciar Chat</a>
+                                <br><small class="text-muted">Disponível 24/7</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+         
+    <!-- Seção Quem Somos -->
+    <section class="sobre-section py-5" id="sobre">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+                    <i class="bi bi-heart-fill text-danger img-sobre" style="font-size: 10rem;"></i>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4 text-primary">Quem Somos</h2>
+                    <p class="lead">O <strong>Mais Empatia</strong> nasceu da necessidade de criar ambientes escolares mais seguros e acolhedores para todos os estudantes.</p>
+                    <p>Nossa equipe é composta por psicólogos, educadores e especialistas em saúde mental dedicados a combater o bullying e promover a cultura da empatia nas escolas.</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-outline-primary me-2">Nossa Missão</a>
+                        <a href="#contato" class="btn btn-empatia">Contate-nos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

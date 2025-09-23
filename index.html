@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Conecta IFPR Ivaiporã - Home</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&family=Playpen+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo-ifizinha-simples.png" alt="Logo IFizinha">
+                <span>Portal Conecta</span>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Editais</a></li>
+                    <li><a href="#">Agenda</a></li>
+
+                    <!-- Item com submenu -->
+                    <li class="has-submenu">
+                        <a href="#">Projetos</a>
+                        <ul class="submenu">
+                            <li><a onclick="paginaProjetos()">Conheça os Projetos</a></li>
+                            <li><a href="Conexao_astronomia/index.html">Conexão Astronomia</a></li>
+                            <li><a href="mais_empatia/mais_empatia_site.html">Mais Empatia</a></li>
+                            <li><a href="ifizinha/ifizinha_project_page.html">IFzinha</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#">Sobre a IFizinha</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-bar">
+                <input type="search" placeholder="O que você procura no IF?">
+                <button class="pesquisa">Buscar</button>
+                <button id="btnLogin" class="btn btn-primary hide" onclick="login()">Entrar</button>
+                <button id="btnLogout" class="btn btn-ghost" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="container">
+        <section class="main-banner">
+            <div class="banner-slide active">
+                <div class="banner-text">
+                    <h1>Inscrições Abertas para a FECIPE! 💡</h1>
+                    <p>Mostre seu projeto para o mundo! Saiba mais e participe do maior evento de inovação do nosso
+                        campus.</p>
+                    <a href="#" class="btn-main">Saiba Mais</a>
+                </div>
+                <div class="banner-image">
+                    <img src="ifizinha-banner.png" alt="IFizinha convidando para a FECIPE">
+                </div>
+            </div>
+        </section>
+
+        <section class="shortcuts">
+            <h2>Fique por Dentro</h2>
+            <div class="card-container">
+                <div class="shortcut-card">
+                    <div class="card-icon">📚</div>
+                    <h3>Editais em 'Estudantês'</h3>
+                    <p>Traduções da IFizinha pra você não perder nada!</p>
+                </div>
+                <div class="shortcut-card">
+                    <div class="card-icon">📅</div>
+                    <h3>Agenda do IF</h3>
+                    <p>Fique por dentro de todos os eventos!</p>
+                </div>
+                <a onclick="paginaProjetos()" style="cursor: pointer;">
+                <div class="shortcut-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>Conheça os Projetos</h3>
+                    <p>Veja as ideias que transformam nosso campus!</p>
+                </div>
+                </a>
+                <div class="shortcut-card">
+                    <div class="card-icon">✨</div>
+                    <h3>Dica da IFizinha</h3>
+                    <p>Uma ajuda para seus estudos e dia a dia!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-feed">
+            <h2>Últimas dos Projetos</h2>
+            <div class="card-container">
+                <div class="project-card">
+                    <img src="logo-mds.png" alt="Logo do Projeto Marketing Digital Solidário">
+                    <div class="project-info">
+                        <span class="project-tag extensao">Extensão</span>
+                        <h3>Marketing Digital Solidário</h3>
+                        <p>Nossa equipe acaba de lançar o novo Manual da Marca da IFizinha! Confira os detalhes...</p>
+                        <a href="#">Ver mais</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="logo-agrofloresta.png" alt="Logo do Projeto Agrofloresta">
+                    <div class="project-info">
+                        <span class="project-tag pesquisa">Pesquisa</span>
+                        <h3>Agrofloresta de Café</h3>
+                        <p>Resultados da última colheita experimental são promissores. Veja os dados preliminares...</p>
+                        <a href="#">Ver mais</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="logo-biologia-ilustrada.png" alt="Logo do Projeto Biologia Ilustrada">
+                    <div class="project-info">
+                        <span class="project-tag ensino">Ensino</span>
+                        <h3>Biologia Ilustrada</h3>
+                        <p>Novas ilustrações sobre o sistema circulatório disponíveis para download. Acesse!</p>
+                        <a href="#">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© 2025 IFPR Campus Ivaiporã - Desenvolvido pelos alunos de Sistemas para Informação</p>
+            <p>Gerenciado pelo Projeto de Extensão Marketing Digital Solidário</p>
+        </div>
+    </footer>
+
+    <!-- Modal Login -->
+    <dialog id="dlgLogin" aria-label="Login">
+        <form method="dialog" class="form" onsubmit="Auth.submit(event)">
+            <h3>Entrar</h3>
+            <p class="micro">Simulação de perfis (visitante, editor, admin).</p>
+            <div class="field">
+                <label for="lg-email">E-mail</label>
+                <input id="lg-email" class="input" type="email" required placeholder="nome@exemplo.com" />
+            </div>
+            <div class="field">
+                <label for="lg-perfil">Perfil</label>
+                <select id="lg-perfil" class="input">
+                    <option value="visitante">Visitante</option>
+                    <option value="editor">Editor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <menu style="display:flex;gap:8px;justify-content:flex-end">
+                <button class="btn btn-ghost" value="cancel" onclick="cancel('dlgLogin')">Cancelar</button>
+                <button class="btn btn-primary" value="default">Entrar</button>
+            </menu>
+        </form>
+    </dialog>
+
+
+     <!-- Modal Projetos -->
+    <dialog id="pgProjetos" aria-label="Login">
+        <h3>Escolha um projeto</h3>
+        <p >Conheça os projetos desenvolvidos no IFPR Campus Ivaiporã.</p>
+        <div class="field"> 
+         <a href="pagina_projetos/astronomia.html" class="btn btn-primary">Conexão Astronomia</a>
+         <a href="pagina_projetos/mais_empatia.html" class="btn btn-primary">Mais Empatia</a>
+         <a href="pagina_projetos/ifizinha.html" class="btn btn-primary">IFzinha</a>
+        </div>
+
+        <menu style="display:flex;gap:8px;justify-content:flex-end; margin-top: 10px;">
+            <button class="btn btn-ghost" value="cancel" onclick="cancel('pgProjetos')">Cancelar</button>
+
+    
+    </dialog>
+
+
+
+    <!-- Toast simples -->
+    <div id="toast" role="status" aria-live="polite" class="toast hide"></div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
