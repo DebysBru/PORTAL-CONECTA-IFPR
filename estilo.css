@@ -184,6 +184,12 @@ body {
     padding: 40px 0;
 }
 
+.shortcuts a{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .shortcuts h2,
 .projects-feed h2 {
     text-align: center;
@@ -221,6 +227,8 @@ body {
     font-family: var(--font-destaque);
     margin-bottom: 5px;
 }
+
+
 
 /* --- CARDS DE PROJETOS --- */
 .project-card {
