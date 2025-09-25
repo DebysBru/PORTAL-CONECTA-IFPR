@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <title>Projeto • Portal Conecta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <meta name="description" content="Detalhe do conteúdo publicado no Portal Conecta.">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <span class="logo">🗂️</span>
+        <strong>Detalhe</strong>
+        <span class="campus">Portal Conecta</span>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section-light">
+    <div class="container">
+      <div id="content" class="card-mds"></div>
+      <div style="margin-top:14px">
+        <a class="btn btn-mds-action" href="projetos.html">← Voltar</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div><strong>Portal Conecta</strong><p class="muted">IFPR • Ivaiporã</p></div>
+      <nav><ul class="foot-links"><li><a href="index.html">Início</a></li><li><a href="projetos.html">Projetos</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script>
+    const LS_KEY = 'conecta.conteudos.v1';
+    const el = document.getElementById('content');
+
+    function read(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){ return []; } }
+    function q(key){ return new URLSearchParams(location.search).get(key); }
+    function escapeHtml(s=''){ return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    // Markdown mínimo (negrito, itálico, títulos, listas, quebras de linha)
+    function mdToHtml(md=''){
+      let h = md
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      h = h.replace(/^###### (.*)$/gm,'<h6>$1</h6>')
+           .replace(/^##### (.*)$/gm,'<h5>$1</h5>')
+           .replace(/^#### (.*)$/gm,'<h4>$1</h4>')
+           .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+           .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+           .replace(/^# (.*)$/gm,'<h1>$1</h1>')
+           .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+           .replace(/\*(.+?)\*/g,'<em>$1</em>');
+      // listas simples
+      h = h.replace(/(^|\n)- (.*)/g, '$1• $2');
+      h = h.replace(/\n{2,}/g,'</p><p>');
+      h = `<p>${h}</p>`;
+      return h;
+    }
+
+    function render(){
+      const id = q('id');
+      const item = read().find(x=>x.id===id);
+      if(!item || !item.publicado){
+        document.title = 'Conteúdo não encontrado';
+        el.innerHTML = `<h2>Conteúdo não encontrado</h2><p class="muted">Verifique o link ou retorne à lista.</p>`;
+        return;
+      }
+      const meta = [item.tipo, item.categoria, item.data].filter(Boolean).join(' • ');
+      document.title = `${item.titulo} • Portal Conecta`;
+
+      el.innerHTML = `
+        <header class="card-head" style="margin-bottom:6px">
+          <h2>${escapeHtml(item.titulo)}</h2>
+          <span class="badge">${escapeHtml(item.tipo||'Conteúdo')}</span>
+        </header>
+        <p class="muted" style="margin:0 0 12px">${escapeHtml(meta)}</p>
+        ${item.capaUrl ? `<img src="${escapeHtml(item.capaUrl)}" alt="" style="width:100%; height:auto; border-radius:12px; margin-bottom:12px">` : ''}
+        ${item.resumo ? `<p><em>${escapeHtml(item.resumo)}</em></p>` : ''}
+        <div style="margin-top:12px">${mdToHtml(item.conteudo||'')}</div>
+        ${item.linkPdf ? `<p style="margin-top:14px"><a class="btn btn-link" href="${escapeHtml(item.linkPdf)}" target="_blank" rel="noopener">Abrir anexo</a></p>` : ''}
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>

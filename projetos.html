@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <title>Projetos • Portal Conecta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <meta name="description" content="Diretório de projetos, eventos, notícias e recursos publicados no Portal Conecta.">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <span class="logo">📁</span>
+        <strong>Projetos</strong>
+        <span class="campus">Portal Conecta</span>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section-light">
+    <div class="container">
+      <h1>Diretório público</h1>
+      <p class="lead">Conteúdos publicados pelo Admin — busque por título, filtre por tipo e descubra materiais úteis.</p>
+
+      <div class="card-mds" style="margin: 16px 0">
+        <div style="display:grid; gap:12px; grid-template-columns: 1fr 180px 180px">
+          <input id="q" type="text" placeholder="Buscar por título, categoria ou responsável..." style="padding:10px 12px; border-radius:12px; border:1.5px solid #d9dee7">
+          <select id="tipo" style="padding:10px 12px; border-radius:12px; border:1.5px solid #d9dee7">
+            <option value="">Todos os tipos</option>
+            <option>Projeto</option>
+            <option>Edital traduzido</option>
+            <option>Notícia</option>
+            <option>Evento</option>
+            <option>Recurso/PDF</option>
+          </select>
+          <select id="categoria" style="padding:10px 12px; border-radius:12px; border:1.5px solid #d9dee7">
+            <option value="">Todas as categorias</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="list" class="grid grid-3" aria-live="polite"></div>
+      <p id="empty" class="muted" style="display:none; margin-top: 16px">Nada encontrado com estes filtros.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div><strong>Portal Conecta</strong><p class="muted">IFPR • Ivaiporã</p></div>
+      <nav><ul class="foot-links"><li><a href="index.html">Início</a></li><li><a href="admin.html">Admin</a></li></ul></nav>
+    </div>
+  </footer>
+
+  <script>
+    const LS_KEY = 'conecta.conteudos.v1';
+    const listEl = document.getElementById('list');
+    const emptyEl = document.getElementById('empty');
+    const qEl = document.getElementById('q');
+    const tipoEl = document.getElementById('tipo');
+    const catEl = document.getElementById('categoria');
+
+    function read(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch(e){ return []; } }
+
+    function uniqueCats(items){
+      const s = new Set(items.map(x=>x.categoria).filter(Boolean));
+      return Array.from(s).sort((a,b)=>a.localeCompare(b));
+    }
+
+    function renderCats(items){
+      const cats = uniqueCats(items);
+      catEl.innerHTML = '<option value="">Todas as categorias</option>' + cats.map(c=>`<option>${escapeHtml(c)}</option>`).join('');
+    }
+
+    function escapeHtml(s=''){ return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    function card(item){
+      const href = `projeto.html?id=${encodeURIComponent(item.id)}`;
+      const tag = item.tipo || 'Conteúdo';
+      const meta = [item.categoria, item.data].filter(Boolean).join(' • ');
+      return `
+        <article class="card-mds">
+          <header class="card-head">
+            <h3>${escapeHtml(item.titulo||'(sem título)')}</h3>
+            <span class="badge">${escapeHtml(tag)}</span>
+          </header>
+          ${item.capaUrl ? `<img src="${escapeHtml(item.capaUrl)}" alt="" style="width:100%; height:auto; border-radius:12px; margin-bottom:10px">`:''}
+          <p class="muted" style="margin:6px 0">${escapeHtml(meta)}</p>
+          ${item.resumo ? `<p>${escapeHtml(item.resumo)}</p>`:''}
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px">
+            <a class="btn btn-mds-action" href="${href}">Abrir</a>
+            ${item.linkPdf ? `<a class="btn btn-outline" href="${escapeHtml(item.linkPdf)}" target="_blank" rel="noopener">Anexo</a>`:''}
+          </div>
+        </article>
+      `;
+    }
+
+    function apply(){
+      const q = (qEl.value||'').toLowerCase();
+      const tipo = tipoEl.value;
+      const cat = catEl.value;
+
+      const all = read().filter(x=>x.publicado);
+      renderCats(all);
+
+      const filtered = all
+        .filter(x => !q || (x.titulo||'').toLowerCase().includes(q) || (x.categoria||'').toLowerCase().includes(q) || (x.responsavel||'').toLowerCase().includes(q))
+        .filter(x => !tipo || x.tipo === tipo)
+        .filter(x => !cat || x.categoria === cat);
+
+      listEl.innerHTML = filtered.map(card).join('');
+      emptyEl.style.display = filtered.length ? 'none' : 'block';
+      document.title = `Projetos • ${filtered.length} resultado(s)`;
+    }
+
+    qEl.addEventListener('input', apply);
+    tipoEl.addEventListener('change', apply);
+    catEl.addEventListener('change', apply);
+
+    apply();
+  </script>
+</body>
+</html>

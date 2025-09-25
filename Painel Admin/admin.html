@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin • Portal Conecta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+
+  <meta name="robots" content="noindex, nofollow"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <span class="logo">🛠️</span>
+        <strong>Admin • Portal Conecta</strong>
+        <span class="campus">IFPR • Ivaiporã</span>
+      </div>
+      <nav class="nav" aria-label="Admin">
+        <ul>
+          <li><a href="index.html">Voltar ao Portal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section-light">
+    <div class="container">
+      <div class="admin-top">
+        <h1>Publicação de Conteúdos</h1>
+        <div class="toolbar">
+          <button class="btn btn-mds-action" id="btn-novo">Novo</button>
+          <button class="btn" style="background:var(--mds-verde-claro); color:#043d3c" id="btn-aplicar-template">Aplicar template do tipo</button>
+          <button class="btn" id="btn-exportar">Exportar JSON</button>
+          <label class="btn" style="background:#eef4ff; color:#1e2b4a; cursor:pointer">
+            Importar JSON
+            <input type="file" id="input-importar" accept="application/json" style="display:none">
+          </label>
+          <button class="btn" id="btn-limpar" style="background:#ffeaea; color:#7a1021">Limpar tudo</button>
+        </div>
+      </div>
+
+      <!-- Formulário -->
+      <form class="form" id="form-conteudo" novalidate>
+        <div class="row-3">
+          <div>
+            <label for="tipo">Tipo*</label>
+            <select id="tipo" required>
+              <option value="Projeto">Projeto</option>
+              <option value="Edital traduzido">Edital traduzido</option>
+              <option value="Notícia">Notícia</option>
+              <option value="Evento">Evento</option>
+              <option value="Recurso/PDF">Recurso/PDF</option>
+            </select>
+            <small>Define o template e a exibição nas páginas.</small>
+          </div>
+          <div>
+            <label for="categoria">Categoria</label>
+            <input id="categoria" type="text" placeholder="ex.: Extensão, Pesquisa, Ensino"/>
+          </div>
+          <div>
+            <label for="data">Data</label>
+            <input id="data" type="date"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="titulo">Título*</label>
+            <input id="titulo" type="text" required placeholder="Título do conteúdo"/>
+          </div>
+          <div>
+            <label for="responsavel">Responsável/Equipe</label>
+            <input id="responsavel" type="text" placeholder="Nome(s) do(s) responsável(is)"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="capaUrl">Capa (URL de imagem)</label>
+            <input id="capaUrl" type="url" placeholder="https://..."/>
+          </div>
+          <div>
+            <label for="linkPdf">Link/Anexo (PDF/externo)</label>
+            <input id="linkPdf" type="url" placeholder="https://... ou nome-do-arquivo.pdf"/>
+          </div>
+        </div>
+
+        <div>
+          <label for="resumo">Resumo (até 300 caracteres)</label>
+          <textarea id="resumo" maxlength="300" placeholder="Resumo curto para cards e listagens"></textarea>
+        </div>
+
+        <div>
+          <label for="conteudo">Conteúdo (Markdown básico aceito)</label>
+          <textarea id="conteudo" placeholder="# Título da seção
+Texto com **negrito**, *itálico* e listas:
+- item 1
+- item 2
+"></textarea>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
+          <label class="switch">
+            <input id="publicado" type="checkbox" checked>
+            <span>Publicar</span>
+          </label>
+          <div style="display:flex; gap:10px">
+            <button type="submit" class="btn btn-mds-action" id="btn-salvar">Salvar</button>
+            <button type="button" class="btn" id="btn-preview" style="background:#eef4ff; color:#1e2b4a">Preview</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Listagem -->
+      <section class="section" style="padding-top:24px">
+        <div class="admin-top">
+          <h2>Conteúdos cadastrados</h2>
+          <div class="toolbar">
+            <input id="busca" type="text" placeholder="Buscar por título, categoria..." style="padding:10px 12px; border-radius:12px; border:1.5px solid #d9dee7; min-width: 240px"/>
+            <select id="filtro-tipo" style="padding:10px 12px; border-radius:12px; border:1.5px solid #d9dee7">
+              <option value="">Todos os tipos</option>
+              <option>Projeto</option>
+              <option>Edital traduzido</option>
+              <option>Notícia</option>
+              <option>Evento</option>
+              <option>Recurso/PDF</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap" style="overflow:auto">
+          <table class="table" id="tabela">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Data</th>
+                <th>Publicado</th>
+                <th style="width:200px">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Admin • Portal Conecta</strong>
+        <p class="muted">Use Exportar/Importar para backup. O armazenamento é local (este navegador).</p>
+      </div>
+      <nav>
+        <ul class="foot-links">
+          <li><a href="index.html">Portal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>

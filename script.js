@@ -58,3 +58,13 @@ function paginaProjetos() {
         document.getElementById('pgProjetos').showModal()
 
 }
+
+function painelAdmin() {
+    let login = document.getElementById('lg-email').value;
+    let perfil = document.getElementById('lg-perfil').value;
+
+
+    if(login == "admin" && perfil == "admin"){
+    window.location.href = './Painel Admin/admin.html'; // Redireciona para a página admin.html
+    }
+}
